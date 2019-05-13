@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, Button } from "react-native";
-import firebase from "firebase";
 
 class Login extends Component {
   static navigationOptions = {
@@ -9,8 +8,7 @@ class Login extends Component {
 
 
   state = {
-    email: "",
-    password: "",
+    username: "",
     is_loading: false
   }
   //
@@ -22,22 +20,11 @@ class Login extends Component {
 
           <View style={styles.main}>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Enter your email</Text>
+              <Text style={styles.label}>Enter your username</Text>
               <TextInput
-                keyboardType={"email-address"}
                 style={styles.textInput}
-                onChangeText={email => this.setState({ email })}
-                value={this.state.email}
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Enter your password</Text>
-              <TextInput
-                secureTextEntry={true}
-                style={styles.textInput}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
               />
             </View>
 
@@ -56,24 +43,20 @@ class Login extends Component {
 
 
   login = async () => {
-    const { email , password } = this.state;
+    const username = this.state.username;
     this.setState({
       is_loading: true
     });
 
-    if (email && password) {
-      try {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        this.props.navigation.navigate("Rooms");
-      } catch (auth_err) {
-        console.log("auth error: ", auth_err);
-      }
+    if (username) {
+      this.props.navigation.navigate("Rooms", {
+        'id': username
+      });
     }
 
     await this.setState({
       is_loading: false,
-      email: "",
-      password: ""
+      username: ""
     });
   }
 }
