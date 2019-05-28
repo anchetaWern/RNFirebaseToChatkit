@@ -1,6 +1,8 @@
 # RNFirebaseToChatkit
 A sample React Native chat app showing how to migrate from Firebase to Chatkit.
 
+Tutorial is available at: [https://pusher.com/tutorials/migrating-firebase-chatkit](https://pusher.com/tutorials/migrating-firebase-chatkit)
+
 The app has the following features:
 
 - Sending a message.
